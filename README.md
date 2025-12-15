@@ -123,7 +123,8 @@ This backend is paired with a Power BI report that demonstrates how the schema a
 ### Primary Dashboard: Pipeline, Revenue, & Delivery
 
 The main report page includes:
-<img width="1439" height="908" alt="consultingCRM" src="https://github.com/user-attachments/assets/c2cbd681-c909-4589-9b66-cb45fe2054e8" />
+<img width="1436" height="800" alt="Pipeline RevenueView" src="https://github.com/user-attachments/assets/9355c14d-e065-4d91-bf83-dcce7e612b97" />
+
 
 * **Leads by Status** – Bar chart showing pipeline distribution across sales stages
 * **Revenue by Client** – Horizontal bar chart summarizing total contracted value per account
