@@ -44,7 +44,7 @@ The schema mirrors common CRM concepts to allow seamless future integration with
 * `projects` – billable work tied to accounts
 * `activities` – shared activity log across leads, accounts, and projects
 
-Primary keys are UUIDs. Status fields are enforced using enums. Referential integrity is handled at the database level.
+Primary keys are UUIDs. Status fields are enforced using enums. Referential integrity is handled at the database level where appropriate.
 
 An ER diagram is included in `/architecture`.
 
@@ -68,10 +68,10 @@ Although Salesforce is not part of the MVP implementation, the schema intentiona
 
 | PostgreSQL Table | Salesforce Object |
 | ---------------- | ----------------- |
-| leads            | Lead              |
-| accounts         | Account           |
-| projects         | Opportunity       |
-| activities       | Activity          |
+| `leads`          | Lead              |
+| `accounts`       | Account           |
+| `projects`       | Opportunity       |
+| `activities`     | Activity          |
 
 This allows future synchronization via API, ETL tooling, or Power Automate without requiring a schema redesign.
 
@@ -95,12 +95,12 @@ consulting-crm-backend/
 
 ## Design Decisions
 
-Key decisions documented in this project:
+Key decisions documented in this project include:
 
-* Use of PostgreSQL instead of a full CRM platform to reduce cost while preserving relational rigor
-* Use of database constraints over application logic where possible
-* Separation of operational tables and analytics views
-* Avoidance of premature frontend development
+* Using PostgreSQL instead of a full CRM platform to reduce cost while preserving relational rigor
+* Enforcing business rules via database constraints where possible
+* Separating operational tables from analytics views
+* Avoiding premature frontend or UI development
 
 These decisions are discussed in more detail in `/docs/design-decisions.md`.
 
