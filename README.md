@@ -27,9 +27,8 @@ This project provides a structured backend that solves those problems without ov
 * **System of Record:** PostgreSQL schema and constraints
 * **Analytics:** Power BI (via database views)
 * **API Access:** Supabase auto-generated REST API
-* **Frontend:** Out of scope for MVP
 
-PostgreSQL is intentionally used as the core system to provide strong relational guarantees and BI compatibility while remaining low-cost.
+PostgreSQL is used as the core system to provide strong relational guarantees and BI compatibility while remaining low-cost.
 
 ---
 
@@ -64,7 +63,7 @@ Power BI connects directly to these views to generate pipeline, revenue, and cli
 
 ## Salesforce Readiness
 
-Although Salesforce is not part of the MVP implementation, the schema intentionally aligns with Salesforce concepts:
+The schema intentionally aligns with Salesforce concepts:
 
 | PostgreSQL Table | Salesforce Object |
 | ---------------- | ----------------- |
@@ -115,7 +114,66 @@ This project intentionally does not include:
 * Authentication UI
 * Bidirectional CRM synchronization
 
-Those concerns are out of scope for a solo-consultant MVP.
+---
+
+## Dashboard Overview
+
+This backend is paired with a Power BI report that demonstrates how the schema and analytics views support real-world consulting insights. The dashboard is designed for executive-level visibility while remaining grounded in clean relational data.
+
+### Primary Dashboard: Pipeline, Revenue, & Delivery
+
+The main report page includes:
+<img width="1439" height="908" alt="consultingCRM" src="https://github.com/user-attachments/assets/c2cbd681-c909-4589-9b66-cb45fe2054e8" />
+
+* **Leads by Status** – Bar chart showing pipeline distribution across sales stages
+* **Revenue by Client** – Horizontal bar chart summarizing total contracted value per account
+* **KPI Cards**:
+
+  * Total Estimated Pipeline Value
+  * Total Contracted Revenue
+  * Active Projects Count
+* **Project Detail Table** – Account, project name, status, and contract value
+* **Client Slicer** – Enables focused analysis by individual client
+
+This layout mirrors common executive CRM dashboards while remaining simple and interpretable.
+
+Screenshots of the dashboard are included in `/docs` for portfolio and review purposes.
+
+---
+
+## Power BI Report Pages
+
+The report is structured as a multi-page BI asset. 
+
+Planned / visible report tabs include:
+
+* **Executive Overview** – High-level KPIs and pipeline health
+* **Pipeline Analysis** – Lead volume and value by status and source
+* **Revenue Overview** – Contracted revenue by client and project
+* **Active Projects** – Delivery status and workload distribution
+* **Client Detail** – Drill-down view per account
+* **Delivery & Activity** – Engagement touchpoints and activity trends
+
+This mirrors how dashboards are commonly organized in enterprise BI environments.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+* Supabase account
+* PostgreSQL client (psql)
+* Power BI Desktop
+
+### Setup
+
+1. Create a new Supabase project
+2. Execute `schema.sql` to create tables and enums
+3. Execute `views.sql` to create analytics views
+4. (Optional) Load sample data for testing and demo purposes
+5. Connect Power BI to Supabase using PostgreSQL or ODBC
+6. Build visuals against the provided views
 
 ---
 
