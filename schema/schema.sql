@@ -88,9 +88,29 @@ create table event_outbox (
   aggregate_type text not null,  -- 'lead', 'account', 'project', 'activity'
   aggregate_id uuid not null,
   payload jsonb not null,
+  event_id text unique not null default gen_random_uuid()::text,  -- Idempotency key
   created_at timestamptz default now(),
   processed_at timestamptz,
-  published_at timestamptz
+  published_at timestamptz,
+  retry_count int not null default 0,
+  last_error text
+);
+
+-- Failed events table (dead-letter queue)
+create table failed_events (
+  id uuid primary key default gen_random_uuid(),
+  event_id text not null unique,
+  event_type text not null,
+  aggregate_type text not null,
+  aggregate_id uuid not null,
+  payload jsonb not null,
+  error_message text not null,
+  error_trace text,
+  retry_count int not null,
+  first_failed_at timestamptz not null default now(),
+  last_failed_at timestamptz not null default now(),
+  resolved_at timestamptz,
+  resolved_by text
 );
 
 -- =========================
@@ -102,3 +122,7 @@ create table event_outbox (
 --   create index on activities(related_type, related_id);
 
 create index on event_outbox(processed_at) where processed_at is null;
+create index on event_outbox(event_id);
+create index on failed_events(resolved_at) where resolved_at is null;
+create index on failed_events(event_type);
+create index on failed_events(first_failed_at desc);
