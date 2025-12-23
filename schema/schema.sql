@@ -82,6 +82,17 @@ create table activities (
   notes text
 );
 
+create table event_outbox (
+  id uuid primary key default gen_random_uuid(),
+  event_type text not null,
+  aggregate_type text not null,  -- 'lead', 'account', 'project', 'activity'
+  aggregate_id uuid not null,
+  payload jsonb not null,
+  created_at timestamptz default now(),
+  processed_at timestamptz,
+  published_at timestamptz
+);
+
 -- =========================
 -- INDEXES
 -- =========================
@@ -89,3 +100,5 @@ create table activities (
 -- Common candidates:
 --   create index on projects(account_id);
 --   create index on activities(related_type, related_id);
+
+create index on event_outbox(processed_at) where processed_at is null;
